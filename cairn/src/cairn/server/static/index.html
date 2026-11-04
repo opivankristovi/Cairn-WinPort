@@ -4,6 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cairn</title>
+<script>
+  // Theme: 'system' (follow Windows/OS), 'light' or 'dark'. Applied before first paint.
+  (function () {
+    var pref = 'system';
+    try { pref = localStorage.getItem('cairn.theme') || 'system'; } catch (e) {}
+    var dark = pref === 'dark' || (pref === 'system' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
+    document.documentElement.classList.toggle('dark', dark);
+    document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+  })();
+</script>
 <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
 <script src="/static/vendor/tailwindcss.js"></script>
 <script src="/static/vendor/dagre.min.js"></script>
@@ -212,6 +222,117 @@
     0%, 100% { opacity: 0.72; }
     50% { opacity: 1; }
   }
+
+  /* ── Dark theme ─────────────────────────────────────────────────────────
+     Overrides for the Tailwind colour utilities this page uses, active while
+     <html> has the "dark" class. Selectors are more specific than Tailwind's
+     own, so load order does not matter. When you use a new light-only colour
+     class above, add its dark counterpart here. */
+  html.dark body { background-color: #020617; color: #e2e8f0; }
+  html.dark ::-webkit-scrollbar-thumb { background: #334155; }
+  html.dark .overlay { background: rgba(2,6,23,0.6); }
+  html.dark input, html.dark textarea, html.dark select { color-scheme: dark; }
+  html.dark input:not([type=checkbox]):not([type=radio]):not([class*="bg-"]),
+  html.dark textarea:not([class*="bg-"]), html.dark select:not([class*="bg-"]) { background-color: #0f172a; color: #e2e8f0; }
+  html.dark .bg-amber-50{background-color:rgb(245 158 11 / 0.12)}
+  html.dark .bg-amber-50\/25{background-color:rgb(245 158 11 / 0.03)}
+  html.dark .bg-amber-50\/80{background-color:rgb(245 158 11 / 0.096)}
+  html.dark .bg-brand-50{background-color:rgb(99 102 241 / 0.12)}
+  html.dark .bg-brand-50\/80{background-color:rgb(99 102 241 / 0.096)}
+  html.dark .bg-orange-200{background-color:rgb(249 115 22 / 0.3)}
+  html.dark .bg-rose-50{background-color:rgb(244 63 94 / 0.12)}
+  html.dark .bg-sky-50{background-color:rgb(14 165 233 / 0.12)}
+  html.dark .bg-slate-100{background-color:rgb(30 41 59)}
+  html.dark .bg-slate-200\/70{background-color:rgb(51 65 85 / 0.7)}
+  html.dark .bg-slate-300{background-color:rgb(71 85 105)}
+  html.dark .bg-slate-400{background-color:rgb(100 116 139)}
+  html.dark .bg-slate-50{background-color:rgb(17 24 39)}
+  html.dark .bg-slate-50\/40{background-color:rgb(17 24 39 / 0.4)}
+  html.dark .bg-slate-50\/80{background-color:rgb(17 24 39 / 0.8)}
+  html.dark .bg-slate-800{background-color:rgb(51 65 85)}
+  html.dark .bg-teal-50{background-color:rgb(20 184 166 / 0.12)}
+  html.dark .bg-violet-100{background-color:rgb(139 92 246 / 0.2)}
+  html.dark .bg-violet-50{background-color:rgb(139 92 246 / 0.12)}
+  html.dark .bg-violet-50\/70{background-color:rgb(139 92 246 / 0.08399999999999999)}
+  html.dark .bg-violet-50\/80{background-color:rgb(139 92 246 / 0.096)}
+  html.dark .bg-white{background-color:rgb(15 23 42)}
+  html.dark .bg-white\/80{background-color:rgb(15 23 42 / 0.8)}
+  html.dark .bg-white\/90{background-color:rgb(15 23 42 / 0.9)}
+  html.dark .bg-white\/92{background-color:rgb(15 23 42 / 0.92)}
+  html.dark .bg-white\/95{background-color:rgb(15 23 42 / 0.95)}
+  html.dark .border-amber-100{border-color:rgb(245 158 11 / 0.25)}
+  html.dark .border-amber-200{border-color:rgb(245 158 11 / 0.4)}
+  html.dark .border-amber-200\/80{border-color:rgb(245 158 11 / 0.32000000000000006)}
+  html.dark .border-brand-200{border-color:rgb(99 102 241 / 0.4)}
+  html.dark .border-rose-200{border-color:rgb(244 63 94 / 0.4)}
+  html.dark .border-sky-200{border-color:rgb(14 165 233 / 0.4)}
+  html.dark .border-sky-200\/80{border-color:rgb(14 165 233 / 0.32000000000000006)}
+  html.dark .border-slate-100{border-color:rgb(30 41 59)}
+  html.dark .border-slate-200{border-color:rgb(39 52 73)}
+  html.dark .border-slate-200\/60{border-color:rgb(39 52 73 / 0.6)}
+  html.dark .border-slate-200\/80{border-color:rgb(39 52 73 / 0.8)}
+  html.dark .border-slate-300{border-color:rgb(51 65 85)}
+  html.dark .border-teal-200{border-color:rgb(20 184 166 / 0.4)}
+  html.dark .border-violet-100{border-color:rgb(139 92 246 / 0.25)}
+  html.dark .border-violet-200{border-color:rgb(139 92 246 / 0.4)}
+  html.dark .border-violet-200\/80{border-color:rgb(139 92 246 / 0.32000000000000006)}
+  html.dark .focus\:border-brand-300:focus{border-color:rgb(99 102 241 / 0.4)}
+  html.dark .focus\:ring-brand-100:focus{--tw-ring-color:rgb(99 102 241 / 0.25)}
+  html.dark .focus\:ring-brand-200:focus{--tw-ring-color:rgb(99 102 241 / 0.4)}
+  html.dark .focus\:ring-violet-100:focus{--tw-ring-color:rgb(139 92 246 / 0.25)}
+  html.dark .group:hover .group-hover\:bg-brand-300{background-color:rgb(99 102 241 / 0.45)}
+  html.dark .group:hover .group-hover\:text-brand-600{color:rgb(129 140 248)}
+  html.dark .hover\:bg-amber-50:hover{background-color:rgb(245 158 11 / 0.12)}
+  html.dark .hover\:bg-amber-50\/40:hover{background-color:rgb(245 158 11 / 0.048)}
+  html.dark .hover\:bg-brand-50:hover{background-color:rgb(99 102 241 / 0.12)}
+  html.dark .hover\:bg-rose-50:hover{background-color:rgb(244 63 94 / 0.12)}
+  html.dark .hover\:bg-sky-50:hover{background-color:rgb(14 165 233 / 0.12)}
+  html.dark .hover\:bg-slate-100:hover{background-color:rgb(30 41 59)}
+  html.dark .hover\:bg-slate-50:hover{background-color:rgb(17 24 39)}
+  html.dark .hover\:bg-slate-50\/70:hover{background-color:rgb(17 24 39 / 0.7)}
+  html.dark .hover\:bg-slate-900:hover{background-color:rgb(30 41 59)}
+  html.dark .hover\:bg-teal-50:hover{background-color:rgb(20 184 166 / 0.12)}
+  html.dark .hover\:bg-violet-50:hover{background-color:rgb(139 92 246 / 0.12)}
+  html.dark .hover\:bg-white:hover{background-color:rgb(15 23 42)}
+  html.dark .hover\:border-slate-300:hover{border-color:rgb(51 65 85)}
+  html.dark .hover\:shadow-slate-200\/50:hover{--tw-shadow-color:rgb(0 0 0 / .35)}
+  html.dark .hover\:text-brand-600:hover{color:rgb(129 140 248)}
+  html.dark .hover\:text-rose-600:hover{color:rgb(251 113 133)}
+  html.dark .hover\:text-slate-600:hover{color:rgb(170 182 199)}
+  html.dark .hover\:text-slate-700:hover{color:rgb(203 213 225)}
+  html.dark .ring-brand-200{--tw-ring-color:rgb(99 102 241 / 0.4)}
+  html.dark .shadow-amber-200{--tw-shadow-color:rgb(0 0 0 / .35)}
+  html.dark .shadow-brand-200{--tw-shadow-color:rgb(0 0 0 / .35)}
+  html.dark .shadow-rose-200{--tw-shadow-color:rgb(0 0 0 / .35)}
+  html.dark .shadow-sky-100\/60{--tw-shadow-color:rgb(0 0 0 / .35)}
+  html.dark .shadow-sky-200{--tw-shadow-color:rgb(0 0 0 / .35)}
+  html.dark .shadow-slate-200\/40{--tw-shadow-color:rgb(0 0 0 / .35)}
+  html.dark .shadow-teal-200{--tw-shadow-color:rgb(0 0 0 / .35)}
+  html.dark .text-amber-500{color:rgb(251 191 36)}
+  html.dark .text-amber-600{color:rgb(251 191 36)}
+  html.dark .text-amber-600\/80{color:rgb(251 191 36 / 0.8)}
+  html.dark .text-amber-700{color:rgb(252 211 77)}
+  html.dark .text-amber-800{color:rgb(252 211 77)}
+  html.dark .text-brand-500{color:rgb(129 140 248)}
+  html.dark .text-brand-600{color:rgb(129 140 248)}
+  html.dark .text-brand-700{color:rgb(165 180 252)}
+  html.dark .text-orange-600{color:rgb(251 146 60)}
+  html.dark .text-rose-500{color:rgb(251 113 133)}
+  html.dark .text-rose-600{color:rgb(251 113 133)}
+  html.dark .text-rose-700{color:rgb(253 164 175)}
+  html.dark .text-sky-500{color:rgb(56 189 248)}
+  html.dark .text-sky-600{color:rgb(56 189 248)}
+  html.dark .text-sky-700{color:rgb(125 211 252)}
+  html.dark .text-slate-300{color:rgb(71 85 105)}
+  html.dark .text-slate-400{color:rgb(100 116 139)}
+  html.dark .text-slate-500{color:rgb(148 163 184)}
+  html.dark .text-slate-600{color:rgb(170 182 199)}
+  html.dark .text-slate-700{color:rgb(203 213 225)}
+  html.dark .text-slate-800{color:rgb(226 232 240)}
+  html.dark .text-teal-600{color:rgb(45 212 191)}
+  html.dark .text-teal-700{color:rgb(94 234 212)}
+  html.dark .text-violet-600{color:rgb(167 139 250)}
+  html.dark .text-violet-700{color:rgb(196 181 253)}
 </style>
 <script>
   tailwind.config = {
@@ -271,6 +392,11 @@
       </button>
     </div>
     <div class="flex items-center gap-1.5 ml-1">
+      <button @click="cycleTheme()" :title="'Theme: ' + themeLabel() + ' (click to change)'" class="h-7 w-7 rounded-lg border border-slate-200 text-slate-400 hover:bg-slate-50 hover:text-slate-600 transition inline-flex items-center justify-center shrink-0">
+        <svg x-show="themePref === 'light'" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg x-show="themePref === 'dark'" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg x-show="themePref === 'system'" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>
+      </button>
       <button @click="showLocalPrefs = true" class="h-7 max-w-40 px-2.5 rounded-lg border border-slate-200 text-xs text-slate-500 hover:bg-slate-50 hover:text-slate-700 transition inline-flex items-center shrink-0">
         <span class="truncate block" x-text="actorName()"></span>
       </button>
@@ -473,6 +599,11 @@
       </button>
     </div>
     <div class="flex items-center gap-1.5 ml-1">
+      <button @click="cycleTheme()" :title="'Theme: ' + themeLabel() + ' (click to change)'" class="h-7 w-7 rounded-lg border border-slate-200 text-slate-400 hover:bg-slate-50 hover:text-slate-600 transition inline-flex items-center justify-center shrink-0">
+        <svg x-show="themePref === 'light'" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg x-show="themePref === 'dark'" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg x-show="themePref === 'system'" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>
+      </button>
       <button @click="showLocalPrefs = true" class="h-7 max-w-40 px-2.5 rounded-lg border border-slate-200 text-xs text-slate-500 hover:bg-slate-50 hover:text-slate-700 transition inline-flex items-center shrink-0">
         <span class="truncate block" x-text="actorName()"></span>
       </button>
@@ -1073,6 +1204,8 @@
 function cairnApp() {
   return {
     view: 'list',
+    themePref: 'system',
+    isDark: document.documentElement.classList.contains('dark'),
     projects: [],
     project: null,
     selectedProjectId: '',
@@ -1133,12 +1266,43 @@ function cairnApp() {
     shouldRestoreProjectListScroll: false,
     isStoppingAllProjects: false,
 
+    initTheme() {
+      try { this.themePref = localStorage.getItem('cairn.theme') || 'system'; } catch (e) { this.themePref = 'system'; }
+      if (!['system', 'light', 'dark'].includes(this.themePref)) this.themePref = 'system';
+      if (window.matchMedia) {
+        matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => this.applyTheme());
+      }
+      this.applyTheme();
+    },
+
+    applyTheme() {
+      const dark = this.themePref === 'dark'
+        || (this.themePref === 'system' && !!window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
+      document.documentElement.classList.toggle('dark', dark);
+      document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+      const changed = dark !== this.isDark;
+      this.isDark = dark;
+      if (changed && this.cy) this.cy.style(this.graphStyles());
+    },
+
+    cycleTheme() {
+      const order = ['system', 'light', 'dark'];
+      this.themePref = order[(order.indexOf(this.themePref) + 1) % order.length];
+      try { localStorage.setItem('cairn.theme', this.themePref); } catch (e) {}
+      this.applyTheme();
+    },
+
+    themeLabel() {
+      return { system: 'System', light: 'Light', dark: 'Dark' }[this.themePref] || 'System';
+    },
+
     async init() {
       this._panelResizeMove = (e) => this.onPanelResize(e);
       this._panelResizeStop = () => this.stopPanelResize();
       window.addEventListener('pointermove', this._panelResizeMove);
       window.addEventListener('pointerup', this._panelResizeStop);
       this.loadLocalPrefs();
+      this.initTheme();
       await this.loadProjects();
       await this.loadSettings();
       this.startPolling();
@@ -1361,29 +1525,29 @@ function cairnApp() {
     highlightYamlScalar(value) {
       const escaped = this.escapeHtml(value);
       if (!value.trim()) return escaped;
-      if (/^\s*#.*$/.test(value)) return `<span style="color:#64748b">${escaped}</span>`;
-      if (/^\s*['"].*['"]\s*$/.test(value)) return `<span style="color:#15803d">${escaped}</span>`;
-      if (/^\s*\d{4}-\d{2}-\d{2}(?:[ T]\d{2}:\d{2}:\d{2})\s*$/.test(value)) return `<span style="color:#b45309">${escaped}</span>`;
-      if (/^\s*(true|false|null|~)\s*$/i.test(value)) return `<span style="color:#b91c1c">${escaped}</span>`;
-      if (/^\s*-?\d+(\.\d+)?\s*$/.test(value)) return `<span style="color:#0f766e">${escaped}</span>`;
-      if (/^\s*(origin|goal|f\d+|i\d+)\s*$/i.test(value)) return `<span style="color:#6d28d9">${escaped}</span>`;
-      return `<span style="color:#0f172a">${escaped}</span>`;
+      if (/^\s*#.*$/.test(value)) return `<span style="color:${this.isDark ? '#94a3b8' : '#64748b'}">${escaped}</span>`;
+      if (/^\s*['"].*['"]\s*$/.test(value)) return `<span style="color:${this.isDark ? '#4ade80' : '#15803d'}">${escaped}</span>`;
+      if (/^\s*\d{4}-\d{2}-\d{2}(?:[ T]\d{2}:\d{2}:\d{2})\s*$/.test(value)) return `<span style="color:${this.isDark ? '#fbbf24' : '#b45309'}">${escaped}</span>`;
+      if (/^\s*(true|false|null|~)\s*$/i.test(value)) return `<span style="color:${this.isDark ? '#f87171' : '#b91c1c'}">${escaped}</span>`;
+      if (/^\s*-?\d+(\.\d+)?\s*$/.test(value)) return `<span style="color:${this.isDark ? '#2dd4bf' : '#0f766e'}">${escaped}</span>`;
+      if (/^\s*(origin|goal|f\d+|i\d+)\s*$/i.test(value)) return `<span style="color:${this.isDark ? '#c4b5fd' : '#6d28d9'}">${escaped}</span>`;
+      return `<span style="color:${this.isDark ? '#e2e8f0' : '#0f172a'}">${escaped}</span>`;
     },
 
     highlightYamlLine(line) {
       if (/^\s*$/.test(line)) return '';
-      if (/^\s*#/.test(line)) return `<span style="color:#64748b">${this.escapeHtml(line)}</span>`;
+      if (/^\s*#/.test(line)) return `<span style="color:${this.isDark ? '#94a3b8' : '#64748b'}">${this.escapeHtml(line)}</span>`;
 
       const listKeyMatch = line.match(/^(\s*-\s+)([^:#\n][^:]*):(.*)$/);
       if (listKeyMatch) {
         const [, prefix, key, rest] = listKeyMatch;
-        return `${this.escapeHtml(prefix)}<span style="color:#7dd3fc">${this.escapeHtml(key)}</span>:${this.highlightYamlScalar(rest)}`;
+        return `${this.escapeHtml(prefix)}<span style="color:${this.isDark ? '#7dd3fc' : '#7dd3fc'}">${this.escapeHtml(key)}</span>:${this.highlightYamlScalar(rest)}`;
       }
 
       const keyMatch = line.match(/^(\s*)([^:#\n][^:]*):(.*)$/);
       if (keyMatch) {
         const [, indent, key, rest] = keyMatch;
-        return `${this.escapeHtml(indent)}<span style="color:#7dd3fc">${this.escapeHtml(key)}</span>:${this.highlightYamlScalar(rest)}`;
+        return `${this.escapeHtml(indent)}<span style="color:${this.isDark ? '#7dd3fc' : '#7dd3fc'}">${this.escapeHtml(key)}</span>:${this.highlightYamlScalar(rest)}`;
       }
 
       const listValueMatch = line.match(/^(\s*-\s+)(.*)$/);
@@ -1396,6 +1560,15 @@ function cairnApp() {
     },
 
     yamlSectionTint(sectionName) {
+      if (this.isDark) {
+        const dark = {
+          project: { header: 'rgba(59,130,246,0.16)', body: 'rgba(59,130,246,0.04)', itemA: 'rgba(59,130,246,0.07)', itemB: 'rgba(59,130,246,0.11)' },
+          hints: { header: 'rgba(245,158,11,0.16)', body: 'rgba(245,158,11,0.04)', itemA: 'rgba(245,158,11,0.07)', itemB: 'rgba(245,158,11,0.11)' },
+          facts: { header: 'rgba(99,102,241,0.18)', body: 'rgba(99,102,241,0.04)', itemA: 'rgba(99,102,241,0.07)', itemB: 'rgba(99,102,241,0.11)' },
+          intents: { header: 'rgba(16,185,129,0.16)', body: 'rgba(16,185,129,0.04)', itemA: 'rgba(16,185,129,0.07)', itemB: 'rgba(16,185,129,0.11)' },
+        };
+        return dark[sectionName] || { header: '#1e293b', body: '#0f172a', itemA: '#111c30', itemB: '#16213a' };
+      }
       const tints = {
         project: { header: '#eff6ff', body: '#fafcff', itemA: '#f3f8ff', itemB: '#edf5ff' },
         hints: { header: '#fffbeb', body: '#fffef8', itemA: '#fffaf0', itemB: '#fff6e8' },
@@ -1484,19 +1657,19 @@ function cairnApp() {
           background = activeItemStripe === 0 ? tint.itemA : tint.itemB;
         }
 
-        return `<div style="white-space:pre;padding:0 16px;background:${background};font-weight:${fontWeight};color:#0f172a">${lineHtml}</div>`;
+        return `<div style="white-space:pre;padding:0 16px;background:${background};font-weight:${fontWeight};color:${this.isDark ? '#e2e8f0' : '#0f172a'}">${lineHtml}</div>`;
       }).join('');
     },
 
     highlightTimeline(text) {
       const lines = String(text ?? '').split('\n');
-      const stripes = ['#fffbf5', '#fef5ee'];
+      const stripes = this.isDark ? ['rgba(251,146,60,0.05)', 'rgba(251,146,60,0.10)'] : ['#fffbf5', '#fef5ee'];
       let blockIndex = -1;
       return lines.map((line) => {
         if (/^\[/.test(line)) blockIndex++;
         const bg = blockIndex < 0 ? stripes[0] : stripes[blockIndex % 2];
         const isBlank = /^\s*$/.test(line);
-        return `<div style="white-space:pre;padding:0 16px;background:${bg};color:#0f172a">${isBlank ? '&nbsp;' : this.escapeHtml(line)}</div>`;
+        return `<div style="white-space:pre;padding:0 16px;background:${bg};color:${this.isDark ? '#e2e8f0' : '#0f172a'}">${isBlank ? '&nbsp;' : this.escapeHtml(line)}</div>`;
       }).join('');
     },
 
@@ -2228,6 +2401,20 @@ function cairnApp() {
         { selector: 'node.selected-fact', style: { 'border-width':0,'underlay-color':'#93c5fd','underlay-padding':8,'underlay-opacity':0.28,'z-index':1001 }},
         { selector: '.faded', style: { opacity:0.5 }},
         { selector: '.fresh', style: { opacity:0 }},
+        ...(this.isDark ? this.darkGraphStyles() : []),
+      ];
+    },
+
+    darkGraphStyles() {
+      // Applied after the light rules, so these win on the properties they set.
+      return [
+        { selector: 'edge', style: { 'text-background-color':'#0f172a' }},
+        { selector: 'edge[status="in_progress"]', style: { color:'#fbbf24' }},
+        { selector: 'edge[status="bootstrap_pending"], edge[status="bootstrap_running"]', style: { color:'#fdba74' }},
+        { selector: 'node[nodeType="unclaimed"]', style: { 'background-color':'#475569', color:'#cbd5e1', 'border-color':'#64748b' }},
+        { selector: 'edge[status="unclaimed"]', style: { 'line-color':'#475569', 'target-arrow-color':'#475569' }},
+        { selector: 'node[nodeType="bootstrap_pending"]', style: { 'background-color':'#431407', color:'#fdba74' }},
+        { selector: 'node.focus', style: { 'border-color':'#e0e7ff' }},
       ];
     },
 
