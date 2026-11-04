@@ -61,6 +61,10 @@ no-LLM demo) · **Performance** (concurrency, task timeouts, health checks) ·
 **Environment** (variables for all workers, e.g. a proxy) · **Container mode** (image,
 network, capabilities).
 
+**Dark mode:** the UI follows the Windows light/dark setting by default (the Settings window
+always does). The theme button next to your name in the top bar cycles *System → Light → Dark*;
+the choice is remembered.
+
 Only one copy of the app runs at a time. Closing the window stops the dispatcher and any agent
 processes it started.
 
